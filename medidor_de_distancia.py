@@ -10,6 +10,7 @@ largura_de_referencia = 17
 
 verde = (0, 255, 0)
 vermelho = (0, 0, 255)
+branco = (255, 255, 255)
 
 cascade_do_objeto = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
 
