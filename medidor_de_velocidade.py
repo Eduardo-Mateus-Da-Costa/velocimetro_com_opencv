@@ -45,7 +45,7 @@ while True:
                 distancia_corrida = distancia_inicial - distancia_em_metros
 
                 if distancia_corrida < 0:
-                    distancia_corrida * -1
+                    distancia_corrida = distancia_corrida * -1
 
                 tempo_corrido = time.time() - tempo_inicial
 
@@ -64,7 +64,6 @@ while True:
 
             cv2.putText(
                 frame, f"Distancia = {round(distancia_em_metros, 2)} m", (50, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.6, md.verde, 2)
-        # recording the video
         cv2.imshow("Video", frame)
     else:
         break
