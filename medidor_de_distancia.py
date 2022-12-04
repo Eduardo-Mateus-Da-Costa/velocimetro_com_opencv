@@ -41,10 +41,7 @@ foco_referencia = calcular_foco(distancia_de_referencia, largura_da_imagem_de_re
 
 if __name__ == "__main__":
     video = cv2.VideoCapture("video_teste.mp4")
-    print(foco_referencia)
     cv2.imshow("ref_image", imagem_de_referencia)
-    print(imagem_de_referencia.shape)
-    foi = False
     while True:
         ret, frame = video.read()
         if ret:
@@ -54,9 +51,6 @@ if __name__ == "__main__":
                 cv2.putText(
                     frame, f"Distancia = {round(distance, 2)} CM", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (vermelho), 2
                 )
-                if not foi:
-                    print(frame.shape)
-                    foi = True
             cv2.imshow("frame", frame)
         else:
             break

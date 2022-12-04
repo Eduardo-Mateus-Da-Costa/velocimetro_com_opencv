@@ -34,30 +34,30 @@ def calcula_media(lista, tamanho):
     return media
 
 
-def find_vertical_line(image, color, order: Optional[int] = 1, first_position: Optional[bool] = False):
-    finder = 0
-    current_line = False
-    position = None
-    center_height = int(image.shape[0] / 2)
-    color_error_gap = 10
-    for x in range(image.shape[1]):
-        (b, g, r) = image[center_height, x]
-        if abs(b - color[0]) < color_error_gap and abs(g - color[1]) < color_error_gap and abs(r - color[2]) < color_error_gap:
-            if not current_line:
-                finder += 1
-                if finder == order and first_position:
-                    position = x
-                    return position
-            current_line = True
-            position = x
+def procura_linha_vertical(imagem, cor, posicao: Optional[int] = 1, lado_esquerdo: Optional[bool] = False):
+    contador = 0
+    mesma_linha = False
+    valor_x = None
+    centro_altura = int(imagem.shape[0] / 2)
+    margen_de_erro_de_cor = 10
+    for x in range(imagem.shape[1]):
+        (b, g, r) = imagem[centro_altura, x]
+        if abs(b - cor[0]) < margen_de_erro_de_cor and abs(g - cor[1]) < margen_de_erro_de_cor and abs(r - cor[2]) < margen_de_erro_de_cor:
+            if not mesma_linha:
+                contador += 1
+                if contador == posicao and lado_esquerdo:
+                    valor_x = x
+                    return valor_x
+            mesma_linha = True
+            valor_x = x
         else:
-            current_line = False
-            if finder == order and position:
-                return position
+            mesma_linha = False
+            if contador == posicao and valor_x:
+                return valor_x
     raise ValueError("Não foi possível encontrar a linha")
 
 
-def find_square(image, color):
+def procura_quadrado(image, color):
     try:
         hsv_color = cv2.cvtColor(color, cv2.COLOR_BGR2HSV)
         valor = hsv_color[0][0][0]
@@ -73,14 +73,14 @@ def find_square(image, color):
 
 if __name__ == "__main__":
     video = cv2.VideoCapture("video_teste6.mp4")
-    first_line_position = find_vertical_line(imagem_de_referencia, vermelho)
-    second_line_position = find_vertical_line(imagem_de_referencia, vermelho, 2, True)
+    posicao_da_primeira_linha = procura_linha_vertical(imagem_de_referencia, vermelho)
+    posicao_da_segunda_linha = procura_linha_vertical(imagem_de_referencia, vermelho, 2, True)
     while True:
         ret, frame = video.read()
         if ret:
-            posicao_do_objeto = find_square(frame, np.uint8([[[255, 0, 0]]]))
-            if first_line_position < posicao_do_objeto < second_line_position:
-                distancia = (posicao_do_objeto - first_line_position)
+            posicao_do_objeto = procura_quadrado(frame, np.uint8([[[255, 0, 0]]]))
+            if posicao_da_primeira_linha < posicao_do_objeto < posicao_da_segunda_linha:
+                distancia = (posicao_do_objeto - posicao_da_primeira_linha)
                 lista_de_distancias.append(distancia)
                 distancia_media = calcula_media(lista_de_distancias, 2)
                 if distancia_inicial != 0:
