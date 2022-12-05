@@ -72,7 +72,7 @@ def procura_quadrado(image, color):
 
 
 if __name__ == "__main__":
-    video = cv2.VideoCapture("video_teste6.mp4")
+    video = cv2.VideoCapture("video_teste7.mp4")
     posicao_da_primeira_linha = procura_linha_vertical(imagem_de_referencia, vermelho)
     posicao_da_segunda_linha = procura_linha_vertical(imagem_de_referencia, vermelho, 2, True)
     while True:

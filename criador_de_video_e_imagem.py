@@ -12,7 +12,7 @@ cv2.line(frame, (100, 0), (100, frame.shape[0]), vermelho, 5)
 cv2.line(frame, (frame.shape[1] - 100, 0), (frame.shape[1] - 100, frame.shape[0]), vermelho, 5)
 
 
-def criar_video(velocidade_em_pixels: int, nome: str, velocidade_variavel: bool):
+def criar_video(velocidade_em_pixels: int, nome: str, aumentar_velocidade: bool):
     largura = frame.shape[1]
     altura = frame.shape[0]
     centro_y = int(altura / 2)
@@ -27,7 +27,7 @@ def criar_video(velocidade_em_pixels: int, nome: str, velocidade_variavel: bool)
             cv2.line(frame, (100, 0), (100, altura), vermelho, 5)
             cv2.line(frame, (largura-100, 0), (largura-100, altura), vermelho, 5)
             escritor_de_video.write(frame)
-            if velocidade_variavel:
+            if aumentar_velocidade:
                 i += velocidade_em_pixels + variacao * 2
                 variacao += 1
             else:
